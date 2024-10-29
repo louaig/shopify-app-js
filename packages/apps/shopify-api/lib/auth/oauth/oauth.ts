@@ -17,6 +17,7 @@ import {
   Cookies,
   NormalizedResponse,
   NormalizedRequest,
+  CookieData,
 } from '../../../runtime/http';
 import {logger, ShopifyLogger} from '../../logger';
 import {DataType} from '../../clients/types';
@@ -92,13 +93,18 @@ export function begin(config: ConfigInterface): OAuthBegin {
 
     const state = nonce();
 
-    await cookies.setAndSign(STATE_COOKIE_NAME, state, {
+    const cookieData: CookieData = {
       expires: new Date(Date.now() + 60000),
       sameSite: 'lax',
       secure: true,
       path: callbackPath,
-      domain: config.cookieDomain,
-    });
+    };
+
+    if (config.cookieDomain) {
+        cookieData.domain = config.cookieDomain;
+    }
+
+    await cookies.setAndSign(STATE_COOKIE_NAME, state, cookieData);
 
     const scopes = config.scopes ? config.scopes.toString() : '';
     const query = {
@@ -216,13 +222,18 @@ export function callback(config: ConfigInterface): OAuthCallback {
     });
 
     if (!config.isEmbeddedApp) {
-      await cookies.setAndSign(SESSION_COOKIE_NAME, session.id, {
+      const cookieData: CookieData = {
         expires: session.expires,
         sameSite: 'lax',
         secure: true,
         path: '/',
-        domain: config.cookieDomain,
-      });
+      };
+
+      if (cookieData.domain) {
+        cookieData.domain = config.cookieDomain;
+      }
+
+      await cookies.setAndSign(SESSION_COOKIE_NAME, session.id, cookieData);
     }
 
     return {
