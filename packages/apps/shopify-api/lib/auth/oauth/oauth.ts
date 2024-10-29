@@ -17,7 +17,6 @@ import {
   Cookies,
   NormalizedResponse,
   NormalizedRequest,
-  CookieData,
 } from '../../../runtime/http';
 import {logger, ShopifyLogger} from '../../logger';
 import {DataType} from '../../clients/types';
@@ -93,7 +92,7 @@ export function begin(config: ConfigInterface): OAuthBegin {
 
     const state = nonce();
 
-    const cookieData: CookieData = {
+    const cookieData = {
       expires: new Date(Date.now() + 60000),
       sameSite: 'lax',
       secure: true,
@@ -222,7 +221,7 @@ export function callback(config: ConfigInterface): OAuthCallback {
     });
 
     if (!config.isEmbeddedApp) {
-      const cookieData: CookieData = {
+      const cookieData = {
         expires: session.expires,
         sameSite: 'lax',
         secure: true,
