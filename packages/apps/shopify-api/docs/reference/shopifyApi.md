@@ -21,6 +21,7 @@ const shopify = shopifyApi({
   userAgentPrefix: 'Custom prefix',
   privateAppStorefrontAccessToken: 'PrivateAccessToken',
   customShopDomains: ['*.my-custom-domain.io'],
+  cookieDomain: '.my-custom-domain.io', 
   billing: {
     'My plan': {
       amount: 5.0,
@@ -107,6 +108,12 @@ Fixed Storefront API access token for private apps.
 `(RegExp | string)[]` | Defaults to `undefined`
 
 Use this if you need to allow values other than `myshopify.com`.
+
+### cookieDomain
+
+`string` | Defaults to `undefined`
+
+Use this if you need to set a domain for the state cookie in the oauth flow.
 
 ### billing
 

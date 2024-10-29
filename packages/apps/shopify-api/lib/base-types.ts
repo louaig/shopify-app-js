@@ -77,6 +77,10 @@ export interface ConfigParams<
    */
   billing?: BillingConfig<Future>;
   /**
+   * Sets a domain for the state cookie in the oauth flow.
+   */
+  cookieDomain?: string;
+  /**
    * REST resources to access the Admin API.
    *
    * You can import these from `@shopify/shopify-api/rest/admin/*`.

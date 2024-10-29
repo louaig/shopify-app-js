@@ -97,6 +97,7 @@ export function begin(config: ConfigInterface): OAuthBegin {
       sameSite: 'lax',
       secure: true,
       path: callbackPath,
+      domain: config.cookieDomain,
     });
 
     const scopes = config.scopes ? config.scopes.toString() : '';
@@ -220,6 +221,7 @@ export function callback(config: ConfigInterface): OAuthCallback {
         sameSite: 'lax',
         secure: true,
         path: '/',
+        domain: config.cookieDomain,
       });
     }
 
