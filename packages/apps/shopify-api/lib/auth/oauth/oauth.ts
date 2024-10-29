@@ -101,7 +101,7 @@ export function begin(config: ConfigInterface): OAuthBegin {
     };
 
     if (config.cookieDomain) {
-        cookieData.domain = config.cookieDomain;
+      cookieData.domain = config.cookieDomain;
     }
 
     await cookies.setAndSign(STATE_COOKIE_NAME, state, cookieData);
